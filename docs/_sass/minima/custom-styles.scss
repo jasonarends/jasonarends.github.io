@@ -1,0 +1,31 @@
+// Placeholder to allow defining custom styles that override everything else.
+// (Use `_sass/minima/custom-variables.scss` to override variable defaults)
+
+@font-face {
+	font-family: CMR;
+	src: url(/assets/fonts/cmuserif_roman_macroman/cmunrm-webfont.woff) format('woff');
+	font-display: fallback;    
+    font-weight: normal;
+    font-style: normal;
+	
+}
+@font-face {
+    font-family: 'CMR';
+    src: url('/assets/fonts/cmuserif_bold_macroman/cmunbx-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'CMR';
+    src: url('/assets/fonts/cmuserif_oblique_macroman/cmunti-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+
+}
+@font-face {
+	font-family: CMT;
+	src: url(/assets/fonts/cmutypewritertext_roman_macroman/cmuntt-webfont.woff);
+	font-display: fallback;
+}
+ 

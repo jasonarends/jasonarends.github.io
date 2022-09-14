@@ -32,7 +32,7 @@ url: https://jasonarends.github.io # the base hostname & protocol for your site,
 
 
 # Build settings
-theme: minima
+remote_theme: jekyll/minima
 minima:
   skin: solarized-light
   social_links:

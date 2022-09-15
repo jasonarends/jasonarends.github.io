@@ -4,6 +4,12 @@ title: About
 permalink: /about/
 ---
 
+I wanted a place to write down solutions I found for problems, so other people could find them.
+
+Creating this site became a whole learning experience of its own.
+
+I modified the fonts of this theme to use Computer Modern, which is the font created for LaTeX, because it's nice.
+
 This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
 
 You can find the source code for Minima at GitHub:

@@ -1,0 +1,37 @@
+---
+layout: post
+status: publish
+published: true
+title: Raspberry Pi
+author:
+  display_name: k0jaa
+  login: k0jaa
+  email: k0jaa@k0jaa.com
+  url: http://k0jaa.com
+author_login: k0jaa
+author_email: k0jaa@k0jaa.com
+author_url: http://k0jaa.com
+wordpress_id: 55
+wordpress_url: http://k0jaa.com/?p=55
+date: '2015-01-24 10:08:40 -0600'
+date_gmt: '2015-01-24 16:08:40 -0600'
+categories:
+- Projects
+- Raspberry Pi
+tags: []
+comments:
+- id: 3
+  author: more home automation | jasonarends
+  author_email: ''
+  author_url: http://jasonarends.com/2015/04/27/more-home-automation/
+  date: '2015-04-27 23:02:41 -0500'
+  date_gmt: '2015-04-28 04:02:41 -0500'
+  content: "[&#8230;] have this Raspberry Pi that I&#8217;ve written briefly about
+    on my other site: http://k0jaa.com/2015/01/raspberry-pi/. It controls the lights
+    in my living room based on a few [&#8230;]"
+---
+<p><a href="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171744.jpg"><img class="alignright size-medium wp-image-39" src="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171744-300x225.jpg" alt="wpid-img_20150123_171744.jpg" width="300" height="225" /></a>I have 1 Raspberry Pi that I mostly use for home automation, but it also has a couple of displays connected that are handy near my ham radio.</p>
+<p>One is a big, green, 7-segment display that simply displays the UTC time.  The Pi has a Real Time Clock module as well so it keeps the time between reboots, although it does sync to an internet time server upon reboot.<!--more--></p>
+<p>The other display is a 20x4 LCD display that uses a USB connection and has the ability to adjust the backlight color.  A cron job pulls the current weather from a local reporting station using <a href="http://wunderground.com" target="_blank">Weather Underground's</a> API every 5 mins.  I wrote a python script that reads this info and inserts it into a rotation of things that display - here are a few of the screens:</p>
+<p><a href="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171920.jpg"><img class="aligncenter size-medium wp-image-38" src="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171920-300x225.jpg" alt="wpid-img_20150123_171920.jpg" width="300" height="225" /></a> <a href="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171930.jpg"><img class="aligncenter size-medium wp-image-37" src="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171930-300x225.jpg" alt="wpid-img_20150123_171930.jpg" width="300" height="225" /></a> <a href="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171939.jpg"><img class="aligncenter size-medium wp-image-36" src="http://k0jaa.com/wp-content/uploads/2015/01/wpid-img_20150123_171939-300x225.jpg" alt="wpid-img_20150123_171939.jpg" width="300" height="225" /></a></p>
+<p>You might have noticed the "sndn in 0:15:15" - the Pi also calculates the sun up and sun down times and uses that to also turn lights on and off at appropriate times.  Combined with the weather info, it will also turn one or two lights on during the day if it is overcast, rainy, mostly cloudy, etc.</p>

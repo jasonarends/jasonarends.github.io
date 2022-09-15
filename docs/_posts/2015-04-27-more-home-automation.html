@@ -1,0 +1,35 @@
+---
+layout: post
+status: publish
+published: true
+title: more home automation
+author:
+  display_name: jason
+  login: stickb0y7
+  email: jason.arends@gmail.com
+  url: ''
+author_login: stickb0y7
+author_email: jason.arends@gmail.com
+wordpress_id: 184
+wordpress_url: http://jasonarends.com/?p=184
+date: '2015-04-27 23:02:31 -0500'
+date_gmt: '2015-04-28 04:02:31 -0500'
+categories:
+- other
+tags: []
+comments: []
+---
+<p>I have this Raspberry Pi that I've written briefly about on my other site: <a href="http://k0jaa.com/2015/01/raspberry-pi/" target="_blank">http://k0jaa.com/2015/01/raspberry-pi/</a>. It controls the lights in my living room based on a few inputs:</p>
+<ol>
+<li>the position of the sun</li>
+<li>the weather</li>
+<li>if the room is occupied</li>
+</ol>
+<p>#3 is new and I just added it over the past weekend.  Here's how it all works, since I know you're curious.</p>
+<p>First, every day after midnight, a script runs that uses a program called "sunwait" which calculates the sunrise and sunset times for your latitude and longitude. The author of the program wrote it to also be able to calculate when the various "twilight" times start and end, such as astronomical, civil, etc. These are all defined by how many degrees below the horizon the sun is. Well, instead of knowing how far <em>below</em> the horizon the sun is, I wanted to know how far <em>above</em> it was - since it is of course, darker in the house when the sun is low and behind trees and stuff. So I went into the code and changed a few things and I now calculate +5 and +10 degrees after sunrise and before sunset. The script records all these values into a database first thing each day.</p>
+<p>Another very simple script (really just one line in my crontab) pulls down current weather data for a weather station near me from <a href="http://www.wunderground.com" target="_blank">wunderground.com</a> using their API. The weather data conveniently includes a text description of the current weather, something friendly like "Partly Cloudy" or "Heavy Fog" or "Tornado" and these are all defined on their site. I went through and categorized each of these conditions into where I thought they fit in 3 categories: "bright", "dim", and "dark." I'd really like to get more accurate data - such as percent cloud cover but I haven't found a source for that. Apparently airport METARs have that info but they only update hourly. I'm not sure if the wunderground data actually pulls from that but the rest of the data updates much more frequently. Another solution I might implement is just using a light-sensor that the pi can read. The point is, the current weather string is parsed and either "bright", "dim", or "dark" is recorded into a database with the current time.</p>
+<p>The occupancy data is gathered from my <a href="http://www.ecobee.com" target="_blank">ecobee</a> 3 thermostat, which includes these nifty remote wireless sensors. Each sensor transmits the temperature and motion detection back to the thermostat, which it uses to determine which rooms are occupied and should be averaged into the current house temperature. With their most recent API update, you can now poll the "occupancy" status of each sensor. The occupancy is based on if there was any movement in the previous 30 minutes, so there's always going to be a bit of a lag when the room is empty before it is deemed "unoccupied." I record the data into a database as well, every 5 minutes.</p>
+<p>With all this data being recorded, the final part is a script that reads the various pieces of information and determines what to do. The script is generally run every 2 minutes during parts of the day where I want light. For example, if it is "morning" (which I mean before sunrise) then all lights should be on if the room is occupied, but only 1 light if it is not. So if I run the script at 6:30a, the sun is not up, so it will turn one light on for when I wake up and then when it detects someone is there, the rest will also come on. If it is the middle of the day and it is "dim" then I would like 1 light on in the living room if it is occupied. However, if it is not occupied during the day, then no lights should be on, no matter how dark. As the sun sets, more lights are on for each of the 3 light levels, and finally after the sun sets, all lights are on.  When the sun is around 5 degrees from setting, or later, if nobody is home, 1 light will be on.</p>
+<p>I uploaded my python scripts to github. They're not entirely useful to anyone else because you don't exactly have all the other pieces that fit into it, such as the weather and sun position scripts, but if you know how to input these things, the same automation can be done. My repo is here: <a href="https://github.com/jasonarends/x10-py-wx" target="_blank">https://github.com/jasonarends/x10-py-wx</a>.</p>
+<p>Oh - I forgot one crucial bit of info - the lights are controlled by these "ancient" home automation modules called SmartHome X10. They work by transmitting signals over the powerline and feature radio-signal remote controls. Luckily, they made a computer interface called a "firecracker" which plugged into a serial port and also could send these radio signals to the wall plugin module, which then transmitted the codes over the powerlines. With a USB-serial adapter, I hooked this up to my pi, and use a program called "heyu" to actually change the lights on and off. I wrote a wrapper for this called "pheyu.py" which records the last "known" status of each light in a database and then changes the status when requested. Unfortunately the firecracker is a one-way communication, so the pi never really knows the state of the lights, they might have been overridden by the hand-remote. Best it can do is just assume and remember what it tried to do, but it's really in the dark.</p>
+<p>BTW, I also hooked up one module to an electric cat food dispenser, so the cats are fed on a schedule by the pi.</p>

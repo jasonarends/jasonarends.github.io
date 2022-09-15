@@ -1,0 +1,131 @@
+---
+layout: post
+status: publish
+published: true
+title: DSO138 Oscilloscope Kit
+author:
+  display_name: k0jaa
+  login: k0jaa
+  email: k0jaa@k0jaa.com
+  url: http://k0jaa.com
+author_login: k0jaa
+author_email: k0jaa@k0jaa.com
+author_url: http://k0jaa.com
+wordpress_id: 88
+wordpress_url: http://k0jaa.com/?p=88
+date: '2016-02-12 13:29:39 -0600'
+date_gmt: '2016-02-12 19:29:39 -0600'
+categories:
+- Projects
+tags: []
+comments: []
+---
+<p>I recently read about the DSO138 Oscilloscope kit bye JYE Tech in the January 2016 issue of QST magazine (p62) and thought it would be a fun project to improve my soldering skills and learn how to use an o-scope. I found it on <a href="http://www.amazon.com/gp/product/B0195ZIURK?psc=1&amp;redirect=true&amp;ref_=oh_aui_detailpage_o02_s00" target="_blank">Amazon </a>for around $30 - I opted for the 13803K kit which has the SMD components pre-soldered... I wasn't quite ready to try soldering surface mount components yet. I put this together over the course of 3 days, doing a little bit at a time between other things and even though this is only my second DIY solder-the-components-on kit, I thought maybe posting my own experience would be beneficial to someone.<!--more--></p>
+<p>One thing to mention before I get into the build - there are apparently counterfeits of this out there. JYE Tech explains that theirs are always on a Red PCB board, not Black. The vendor I bought mine from on Amazon was NooElec (I got an RTL-SDR dongle from them before so I knew the name.)</p>
+<p>The kit arrives with a bunch of components in little plastic bags, and two double-sided color pages, one is the assembly instructions, the other is usage. Dumping out all the parts and sorting them reminded me of opening a new Lego kit and dumping it out - here's what everything looked like:</p>
+<p>[caption id="attachment_81" align="aligncenter" width="3840"]<img class="alignnone size-full wp-image-81" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556428.jpg" alt="wp-1455289556428.jpg" width="3840" height="2160" /> All the parts[/caption]</p>
+<h1>Tools</h1>
+<p>They recommend a few tools on the assembly instructions:</p>
+<ul>
+<li>20W soldering iron</li>
+<li>solder (of course)</li>
+<li>multimeter</li>
+<li>screw driver</li>
+<li>flush cutter</li>
+<li>tweezers</li>
+</ul>
+<p>I have some pretty basic equipment, mostly from Radio Shack, but it works. This is what I worked with:</p>
+<ul>
+<li>Radio Shack 30W soldering iron. It was part of a basic kit that came with 5 other various parts that were pretty useless. It was OK but having temperature control might help. Also the tip I have on it is not the smallest - I'd recommend getting a small tip because some of the pins are close together.</li>
+<li>I also just used whatever solder i had - looks like it's also RS 60/40 Standard Rosin-Core Solder. Honestly, I don't know enough about different kinds yet to get anything else.</li>
+<li>Digital Multimeter I got from Amazon - AideTek VC97+ but anything that measures resistance will do. I have a little pocket one from RS as well that would have done the job but the battery died.</li>
+<li>Screwdriver - only need for this is to adjust the capacitor trimmers during calibration - not entirely necessary but it would need to be very small.</li>
+<li>Flush cutter - think I got this from Amazon too - says CHP-170 on the side - will definitely need some kind of cutter to clip off the excess leads.</li>
+<li>Tweezers - didn't use.</li>
+</ul>
+<p>Besides these, there's a couple other things that came in handy:</p>
+<ul>
+<li>Soldering iron stand or station - you need to put that hot thing down somewhere it won't burn your house down. I have the cheap RS one with the sponge for cleaning the iron tip.</li>
+<li>Tip cleaner &amp; tinner - helps keep the soldering iron tip shiny.</li>
+<li>Steel wool - I used this to help clean the tip as well.</li>
+<li>Helping hands with magnifier - sometimes it helps to hold on to the board with a 3rd hand, and the magnifier came in handy for the tiny USB port pins.</li>
+<li>Paper and double-sided tape - to organize things.</li>
+<li>Cell phone camera - instead of the magnifier, I used my cell phone's camera and zoomed in on the tiny components to read the identification.</li>
+</ul>
+<h1>Preparation</h1>
+<p>Sorting and organizing the components really helped when it came time to start soldering them on. I saw this posted somewhere so I did the same:</p>
+<p>[caption id="attachment_82" align="aligncenter" width="2160"]<img class="alignnone size-full wp-image-82" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556806.jpg" alt="wp-1455289556806.jpg" width="2160" height="3840" /> Parts and crafts time[/caption]</p>
+<p>I didn't have double-sided tape, so I just stuck regular tape, sticky-side-up to a piece of paper with tape on each end. Then labelled each part by part number above and value below. I used the multimeter to just measure each resistor and stick it in place, instead of trying to determine the value from the color bands. I don't have the color code memorized so it would have just taken longer to look them all up.</p>
+<p>For the capacitors, the labeling is a little confusing. There's usually 1, 2, or 3 numbers on there which represent the significant digits and how many zeroes follow. The result is in pF - picoFarads. So, for example the 0.1 µF capacitors are labeled "104" - what this means is 10 followed by 4 zeroes, so 100,000 pF = 0.1 µF.</p>
+<p>(1 µF = 1,000 nanoFarads, and 1 nF = 1,000 pF)</p>
+<p>The ones in this kit are labeled as:</p>
+<ul>
+<li><strong>104</strong> = 0.1 µF</li>
+<li><strong>331</strong> = 330 pF (33 with 1 zero)</li>
+<li><strong>3</strong> = 3 pF (3 with no zeroes)</li>
+<li><strong>1</strong> = 1 pF</li>
+<li><strong>121</strong> = 120 pF</li>
+<li><strong>22</strong> = 22 pF (I had a thought, how do you know 22 doesn't mean a 2 with two zeroes? I believe that would be written as 201 instead: 20 followed by 1 zero. It seems if there's going to be zeroes included it will have 2 significant digits and the 3rd position is number of zeroes.)</li>
+</ul>
+<h1>Soldering</h1>
+<p>I don't know if my soldering is OK or terrible, or somewhere in between, but my kit worked the first time I applied power, so I must have done something right. The first thing you want to do is heat up your soldering iron and clean the tip. You want a nice shiny tip so it conducts heat well:</p>
+<p>[caption id="attachment_79" align="aligncenter" width="3840"]<img class="alignnone size-full wp-image-79" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556516.jpg" alt="wp-1455289556516.jpg" width="3840" height="2160" /> Shiny tip. Wow that stand is dusty...[/caption]</p>
+<p>[caption id="attachment_73" align="alignright" width="300"]<img class="alignright size-medium wp-image-73" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289555674-300x169.jpg" alt="wp-1455289555674.jpg" width="300" height="169" /> Empty board (with SMDs)[/caption]</p>
+<p>Starting with step 1 in the instructions, go through each component in order, and cross them off as you go. Each part of the board is labeled, it may take a minute to find some of them but they're all there and there was no ambiguity.</p>
+<h2>Step 1 - Resistors</h2>
+<p>You'll want to bend the resistor leads into a U-shape and then insert them into the correct holes on the board.</p>
+<p>[caption id="attachment_80" align="aligncenter" width="1024"]<img class=" size-large wp-image-80 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556946-1024x576.jpg" alt="wp-1455289556946.jpg" width="1024" height="576" /> U-shape[/caption]</p>
+<p>I bent the leads outward a little bit from the back, to sort of help hold it in place. I don't know if this is recommended or not, it's just what I did.</p>
+<p>[caption id="attachment_84" align="aligncenter" width="1024"]<img class="aligncenter size-large wp-image-84" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556867-1024x576.jpg" alt="wp-1455289556867.jpg" width="1024" height="576" /> Ready to solder these leads[/caption]</p>
+<p>Now, apply the hot, shiny tip of the soldering iron to both the metal pad <em>and</em> the component lead at the same time so they both heat up together. After a few seconds, apply solder to both components - just a little bit, enough so that it flows over the pad and slightly up the lead. I tried to touch the solder to the place where the lead touched the pad, on the opposide side of the lead from where I was heating it with the soldering iron.</p>
+<p>You should end up with a small shiny blob of solder that sort of looks like a little pyramid or Hershey's Kiss. OK here's some of mine, don't laugh:</p>
+<p>[caption id="attachment_83" align="aligncenter" width="3840"]<img class=" size-full wp-image-83 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556784.jpg" alt="wp-1455289556784.jpg" width="3840" height="2160" /> Soldered leads[/caption]</p>
+<p>Finally, clip off the lead right above the solder. Sometimes I got a little heavy on the solder so when I clipped it, it cut into the solder. This might not be a good thing? I'm not sure. I don't actually have any desoldering braid or suction device so I tried to just wipe it off a bit with the soldering iron. This doesn't work well.</p>
+<p>Apparently a "bad" solder joint looks dull, or doesn't completely fill the pad. If that happened to me, I would just solder the other lead to help secure the component, then come back and re-heat the solder and pad and let it re-flow and that usually fixed it.</p>
+<p>I tried to get all the resistors flat on the board as seen below:</p>
+<p>[caption id="attachment_72" align="aligncenter" width="3840"]<img class=" size-full wp-image-72 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289555692.jpg" alt="wp-1455289555692.jpg" width="3840" height="2160" /> Dramatic angle shot of resistors[/caption]</p>
+<p>Orientation doesn't matter with resistors. If you want to line up the colors or something, have fun with that.</p>
+<p>After all the resistors were added:</p>
+<p>[caption id="attachment_76" align="aligncenter" width="3840"]<img class=" size-full wp-image-76 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289555681.jpg" alt="wp-1455289555681.jpg" width="3840" height="2160" /> Step 1 is complete![/caption]</p>
+<h2>Step 2 - HF-Chokes</h2>
+<p>Just like resistors. There's only one size so you don't even have to worry about identifying them. There's three of them and they're a little bigger than the resistors.</p>
+<h2>Step 3 - Diodes</h2>
+<p>There's 2 diodes and you have to make sure to put these on the right direction, it's <em>very</em> important. Luckily, the graphics on the board clearly label the cathode with a line, which corresponds to the silver band on the diode itself. You can see both diodes below and the L1 and L3 chokes:</p>
+<p>[caption id="attachment_85" align="aligncenter" width="3840"]<img class=" size-full wp-image-85 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289556921.jpg" alt="wp-1455289556921.jpg" width="3840" height="2160" /> Diodes in the correct direction[/caption]</p>
+<h2>Step 4 - Crystal</h2>
+<p>There's just one and it's easy to install. I think I put something small under it when I turned the board over, to keep it flush against the board.</p>
+<h2>Step 5 - USB Socket</h2>
+<p>This thing has some tiny close-together pins. I learned on the JYE Tech forum that the USB isn't even used, it's just provided for future use if they put out a new firmware. If you want to leave it off, you can. My soldering of the pins was not pretty. I used a magnifying glass but the tip of my iron is just big for this small job. After I managed to get them, I checked for continuity between each pin - I found one short and saw a tiny trace of solder connecting them. Note that pin 5, which is on one of the ends, is connected to ground, so don't be surprised if that one has a short to the tabs that physically hold the socket to the board, apparently that's normal.</p>
+<h2>Step 6 - Switches</h2>
+<p>Super easy, they sort of snap in, so they hold themselves in place. I snapped all 5 in then flipped it over and soldered them all.</p>
+<h2>Step 7 - Ceramic Capacitors</h2>
+<p>There's a lot of these, but all but 6 are the same value so it's not bad. Nothing too unusual with soldering them, doesn't matter which orientation these go in. One thing to make sure of is that you get them close to the board. Remember, later there's going to be an LCD board sitting above this so you don't want anything taller than the 40-pin header that you'll attach later.</p>
+<h2>Step 8 - LED</h2>
+<p>Make sure you get this in the right direction. The longer lead goes to the hole with the +. Or, the flat side of the LED is the negative side if that also helps.</p>
+<p>Should look something like this at this point:</p>
+<p>[caption id="attachment_75" align="aligncenter" width="3840"]<img class=" size-full wp-image-75 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289555669.jpg" alt="wp-1455289555669.jpg" width="3840" height="2160" /> Making progress[/caption]</p>
+<h2>Step 9 - Pin header</h2>
+<p>This is one of the power connection options, installation self-explanatory.</p>
+<h2>Step 10 - Transistors</h2>
+<p>The labels are tiny, if you can't make them out you might be able to zoom in with a cell phone camera. Bend the middle leg back slightly to get it lined up with the holes, then insert and solder.</p>
+<h2>Step 11 - Regulators</h2>
+<p>See step 10, same.</p>
+<h2>Step 12 - Cap trimmers</h2>
+<p>The diagram on the PCB shows the direction to install them, based on the shape of the device.</p>
+<h2>Step 13 - Power inductor</h2>
+<p>Only one, pop it in and solder.</p>
+<h2>Step 14 - Electrolytic caps</h2>
+<p>There's six of these and they're all the same. These do have an orientation though, so be careful to get them all in the right way. The instructions say the long leg is positive, but also the stripe on the case is negative so you can use both indicators to make sure they're lined up right.</p>
+<h2>Step 15 - 22 - Various Hardware</h2>
+<p>We're done with the electronic components, the rest is hardware. There's only a few things to call out here: the 40-pin headers are kind of a pain just because they're pretty close and there's so many. The one in step 22 especially since I tried to solder them all with the iron away from the LCD, I didn't want to risk getting too close and cracking the glass. I think there's a few pins I need to re-do because I can see some of the pad isn't all the way covered. It works though. The 2-pin headers are just structural support so don't worry about getting them perfect. I read online that you can actually extend the display using a IDE HD male-female cable if you really want.</p>
+<p>Step 19 - BNC connector, those side pins just wouldn't heat up all the way for me with my soldering iron. I managed to get the pad and pin covered in solder but I don't know how good that electrical connection is. I may re-do that one as well at some point.</p>
+<h1>Testing</h1>
+<p>[caption id="attachment_71" align="aligncenter" width="4000"]<img class=" size-full wp-image-71 aligncenter" src="http://k0jaa.com/wp-content/uploads/2016/02/wp-1455289452521.jpg" alt="wp-1455289452521.jpg" width="4000" height="2268" /> Look Ma, a square wave![/caption]</p>
+<p>So, follow the instructions to check your voltages before you get too excited. One thing I couldn't find anywhere was specifications for the power connector polarity so I just traced the leads to find that it's tip positive and the documentation says 9-12 volts will work. I just happened to have in my box-o-junk a 9v 1A wall wart with the same size connector and center positive connector! The o-scope only uses a few hundred milliamps so anything over, say 200 or 250 mA should be sufficient.</p>
+<p>When testing the voltages, note there is a pad on the bottom left of the board called DGND - this is your ground reference. I didn't notice at first so i was using the (-) pin of the J9 power connector, which also worked.</p>
+<p>Make sure you short all the correct jumpers. JP3 should be shorted in step 21, and JP4 should be shorted after you check voltages. These are both on the top of the board, same side as the components.</p>
+<p>When you test it in the final step after attaching the probe and touching it, you probably want to set the CPL to AC or DC - if it's on GND you might not notice the signal and get confused like I was, why it wasn't working.</p>
+<p>Follow the instructions in the user guide for calibrating the probe, it gives you a nice square wave as you see in the picture, so you know it's working.</p>
+<p>That's it! Now to find some things to measure!</p>
+<p>Update: here's a short video I made with it hooked to an audio output of my radio on 10.000 Mhz:</p>
+<p>[embed]https://youtu.be/mNQkcAIvx-s[/embed]</p>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}" />
+  <meta name="author" content="{{ page.author | default: site.author.name }}" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}" />
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
+  <link id="main-stylesheet" rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link id="fa-stylesheet" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css">
+  <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | absolute_url }}" title="{{ site.title | escape }}" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon"></span>
+        </label>
+
+        <div class="nav-items">
+  <a class="nav-item" href="/about/">About</a>
+  <a class="nav-item" href="/authors/claude/">Claude</a>
+  <a class="nav-item" href="/authors/jason/">Jason Arends</a>
+</div>
+
+      </nav>
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">

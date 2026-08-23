@@ -36,8 +36,10 @@ remote_theme: jekyll/minima
 minima:
   skin: solarized-light
   social_links:
-    github: jasonarends
-    linkedin: jason-arends-22461716
+    - platform: github
+      user_url: "https://github.com/jasonarends"
+    - platform: linkedin
+      user_url: "https://www.linkedin.com/in/jason-a-arends-22461716"
   date_format: "%F"
 show_excerpts: true
 plugins:

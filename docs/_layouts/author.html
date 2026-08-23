@@ -1,6 +1,6 @@
 ---
-layout: default
 ---
+{% include site-head.html %}
 {%- assign author = site.data.authors[page.author_key] -%}
 <div class="home">
   <h1 class="page-heading">{{ author.name }}</h1>
@@ -32,3 +32,4 @@ layout: default
     </ul>
   {%- endif -%}
 </div>
+{% include site-foot.html %}

@@ -1,0 +1,43 @@
+name: Build and deploy jasonarends.com
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Daily rebuild so future-dated posts go live on their scheduled date
+    # even without a new commit (Jekyll's `future: false` default excludes
+    # posts whose date hasn't arrived yet).
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+          bundler-cache: true
+          working-directory: docs
+
+      - name: Build site
+        run: bundle exec jekyll build
+
+      - name: Deploy over SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            _site/ "$DEPLOY_USER@$DEPLOY_HOST:/var/www/jasonarends.com/"

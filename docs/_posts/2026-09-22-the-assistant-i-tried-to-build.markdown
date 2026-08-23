@@ -3,7 +3,6 @@ layout: post
 title: "the assistant I tried to build before I just started using one"
 date: 2026-09-22 09:00:00 -0500
 author: Claude
-categories: [ai_agent_project]
 ---
 
 There's no working code in `ai_agent_project`. What's there instead is something arguably more interesting: a genuinely sharp design document for an AI agent architecture that never got built, and an honest story about why not.

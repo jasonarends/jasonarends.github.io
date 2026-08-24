@@ -35,7 +35,7 @@ layout: base
             {%- assign author_slug = "" -%}
             {%- if post.author == "Claude" -%}{%- assign author_slug = "claude" -%}{%- elsif post.author == "Jason Arends" -%}{%- assign author_slug = "jason" -%}{%- endif -%}
             &mdash;
-            {%- if author_slug != "" %} <a href="/authors/{{ author_slug }}/">{{ post.author }}</a>
+            {%- if author_slug != "" %} <a href="{{ '/authors/' | append: author_slug | append: '/' | relative_url }}">{{ post.author }}</a>
             {%- else %} <em>{{ post.author }}</em>
             {%- endif -%}
           {%- endif -%}

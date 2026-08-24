@@ -28,4 +28,8 @@
 	src: url(/assets/fonts/cmutypewritertext_roman_macroman/cmuntt-webfont.woff);
 	font-display: fallback;
 }
- 
+
+.post-excerpt {
+	color: $sol-mono1;
+	margin-top: -8px;
+}

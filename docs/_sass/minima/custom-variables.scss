@@ -1,4 +1,27 @@
 // Placeholder to allow overriding predefined variables smoothly.
 $base-font-family: CMR, serif;
 $code-font-family: CMT, "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
-$base-font-size:   18px
+$base-font-size:   18px;
+
+// minima's solarized skin altered a couple of base tones (base00, base0)
+// and several derived roles (links, code background, footer text, etc.)
+// away from the published Solarized palette for WCAG-contrast reasons —
+// see jekyll/minima's _sass/minima/skins/solarized.scss. This site's
+// "hello world" post specifically calls out using real Solarized Light,
+// so restore the canonical published colors for the roles that changed.
+// (remote_theme has no version pin, so this keeps re-drifting otherwise.)
+$true-sol-base00: #657b83; // canonical solarized base00
+$true-sol-base0:  #839496; // canonical solarized base0
+
+$text-color:            $sol-mono01;
+$code-background-color: $sol-mono2;
+$link-base-color:       $sol-blue;
+$link-visited-color:    mix($sol-blue, $true-sol-base00);
+$link-hover-color:      $true-sol-base00;
+$table-text-color:      $true-sol-base00;
+$table-header-border:   $sol-mono1;
+$table-border-color:    $sol-mono1;
+$border-color-03:       $true-sol-base00;
+$brand-color-dark:      $true-sol-base00;
+$site-title-color:      $true-sol-base00;
+$brand-color-dimmed:    $sol-mono1;

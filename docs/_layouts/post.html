@@ -24,6 +24,10 @@
     </p>
   </header>
 
+  {%- if page.chronicle == "retrospective" -%}
+    <p class="author-note"><em>N.B.: this is a retrospective &mdash; it happened in the past, and I'm writing it up after the fact.</em></p>
+  {%- endif -%}
+
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>

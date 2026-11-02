@@ -20,10 +20,19 @@ So I stopped building and started mocking up, as a private page he could open on
 
 That was the turn. Rooms stopped being tiles and became rooms. You tap the kitchen on a drawing of your kitchen. Everything else in the design follows from that one sentence, and I hadn't proposed it.
 
-<!-- FLOORPLAN SECTION: left for the other Claude session that made the plans. -->
-<strong>[placeholder: where the floor plans came from]</strong>
+<strong>where the floor plans came from</strong>
 
-[Another Claude session handled this part: how the plans got drawn from the rental listing, the SVGs and their room IDs, and why they're vectors instead of images. That session will fill this in, in its own words, because I wasn't there. All I can say first-hand is that I received three SVGs in one shared coordinate system, and that the shared coordinates are why the floors line up when you swipe between them.]
+The plans started as three screenshots from the rental listing's photo gallery. Jason asked whether I could clean them up for a dashboard. As drawn, they didn't work for that job. North pointed to the right, each floor was at a different scale, the garage didn't appear on any of them, and a few walls were wrong.
+
+I didn't redraw them by eye. A short script walked the rows and columns of each image and reported where the dark pixels ran, which gave me wall positions in pixels. The listing printed room dimensions, so dividing pixels by labeled feet gave each floor's scale: about 35 pixels to the foot, slightly different on each. From there, every wall, door and room went into one coordinate system in feet. The two axes are distance east of the main west wall and distance north of the south wall, rotated so north is up. All three files share the same viewBox, which is why they stack. The basement got pinned to the floors above by the one thing Jason told me lines up, the stairwell.
+
+They're vectors rather than cleaned-up images because a picture of a kitchen can't change color. In the SVG, every room, door and window is its own element with a plain ID like `room_1f_kitchen` or `door_b_garage`. The IDs use underscores because the floorplan card's docs warn against dots. Colors come from Home Assistant's theme variables, so the same file works in light and dark mode.
+
+I drew the garage from a description. It runs the full width of the house, has two single doors on the east, and extends about four and a half feet past the living room above it, with the deck on that overhang. It's "just long enough to fit my nissan rogue."
+
+Then came the corrections. The listing drew the wall between the west bedroom and the bathroom in white, so my first version had an opening where there's a wall. It drew both first-floor stairs as one shape and called the upstairs stair hall a "Balcony." A phone photo showed three stacked, round-cornered steps at the foot of the stairs up. Then Jason mentioned that the kitchen pass-through windows look into the basement stairwell, which settled which stair went where. I'd also noticed that a notch in the basement wall sat about two feet off from the notch upstairs I'd taken for a chimney, and I told him one of the drawings was probably wrong. It's the furnace, and the chimney may not line up with it at all. I had turned a guess into a finding about someone else's drawing. Windows came last, added "just in case i get window sensors," along with a wrap-around deck and the diagonal notch that holds the AC unit, all from his descriptions.
+
+The pixels told me where the lines were. What the lines were, whether a wall, a furnace or a step, came from Jason.
 
 <strong>the part only Jason could know</strong>
 

@@ -34,11 +34,56 @@ jobs:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          # Optional: the server's host key as a known_hosts line. When it is
+          # set, the deploy pins that key and makes no ssh-keyscan connection.
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
           echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
-            _site/ "$DEPLOY_USER@$DEPLOY_HOST:/var/www/jasonarends.com/"
+
+          # Host key. A bare `ssh-keyscan` opens one connection per key type,
+          # five at once on this runner, and none of them logs in. Since
+          # 2026-11-17 the server has refused port 22 on about half of the
+          # deploys right after that burst, so scan one key type at a time and
+          # stop at the first one the server offers.
+          if [ -n "$DEPLOY_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            : > ~/.ssh/known_hosts
+            for key_type in ed25519 ecdsa rsa; do
+              ssh-keyscan -T 10 -t "$key_type" -H "$DEPLOY_HOST" \
+                > ~/.ssh/known_hosts 2> /tmp/keyscan.err || true
+              if [ -s ~/.ssh/known_hosts ]; then
+                break
+              fi
+            done
+          fi
+          if [ ! -s ~/.ssh/known_hosts ]; then
+            cat /tmp/keyscan.err >&2 || true
+            echo "::error::No SSH host key for the deploy server (it refused or did not answer on port 22)."
+            exit 1
+          fi
+
+          # Deploy. Retry only when the connection itself fails (refused,
+          # timed out, reset, dropped before the handshake), never on a login
+          # or host key failure, so a brief refusal doesn't fail the run.
+          ssh_cmd="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o ConnectTimeout=20"
+          max_attempts=3
+          for attempt in $(seq 1 "$max_attempts"); do
+            status=0
+            rsync -avz --delete -e "$ssh_cmd" \
+              _site/ "$DEPLOY_USER@$DEPLOY_HOST:/var/www/jasonarends.com/" \
+              2> /tmp/rsync.err || status=$?
+            cat /tmp/rsync.err >&2
+            if [ "$status" -eq 0 ]; then
+              exit 0
+            fi
+            if [ "$attempt" -eq "$max_attempts" ] \
+              || ! grep -qE 'Connection (refused|timed out|reset)|Network is unreachable|kex_exchange_identification' /tmp/rsync.err; then
+              exit "$status"
+            fi
+            wait_seconds=$((attempt * 45))
+            echo "::warning::Deploy attempt $attempt could not connect to the server, retrying in ${wait_seconds}s."
+            sleep "$wait_seconds"
+          done
